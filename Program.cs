@@ -6,20 +6,34 @@ Console.OutputEncoding = Encoding.UTF8;
 // Cria os modelos de hóspedes e cadastra na lista de hóspedes
 List<Pessoa> hospedes = new List<Pessoa>();
 
-Pessoa p1 = new Pessoa(nome: "Hóspede 1");
-Pessoa p2 = new Pessoa(nome: "Hóspede 2");
-
-hospedes.Add(p1);
-hospedes.Add(p2);
+hospedes.Add(new Pessoa(nome: "Hóspede 1"));
+hospedes.Add(new Pessoa(nome: "Hóspede 2"));
+hospedes.Add(new Pessoa(nome: "Hóspede 3"));
+hospedes.Add(new Pessoa(nome: "Hóspede 4"));
 
 // Cria a suíte
-Suite suite = new Suite(tipoSuite: "Premium", capacidade: 2, valorDiaria: 30);
+Suite suite = new Suite(tipoSuite: "Premium", capacidade: 4, valorDiaria: 30);
 
 // Cria uma nova reserva, passando a suíte e os hóspedes
-Reserva reserva = new Reserva(diasReservados: 5);
-reserva.CadastrarSuite(suite);
-reserva.CadastrarHospedes(hospedes);
+try
+{
+    Reserva reserva = new Reserva(suite, hospedes, diasReservados: 10);
 
-// Exibe a quantidade de hóspedes e o valor da diária
-Console.WriteLine($"Hóspedes: {reserva.ObterQuantidadeHospedes()}");
-Console.WriteLine($"Valor diária: {reserva.CalcularValorDiaria()}");
+    //reserva.CadastrarSuite(suite);
+    //reserva.CadastrarHospedes(hospedes);
+
+    // Exibe a quantidade de hóspedes e o valor da diária
+    Console.WriteLine($"Hóspedes: {reserva.ObterQuantidadeHospedes()}       Dias Reservados: {reserva.DiasReservados}");
+    Console.WriteLine($"Suite Tipo: {reserva.Suite.TipoSuite}       Valor diária: {reserva.CalcularValorDiaria():C}");
+
+}
+catch(Exception ex)
+{
+    Console.WriteLine(ex.Message );
+}
+finally
+{
+    Console.ReadLine();
+}
+
+
